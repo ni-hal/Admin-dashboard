@@ -7,13 +7,14 @@ import { Header } from '../../components';
 
 const date1 = new Date('2017, 1, 1');
 
-
 function filterValue(value) {
   if (value.x >= date1) {
-  
-    return value.x, value.high, value.low;
+    return { x: value.x, high: value.high, low: value.low };
   }
+
+  return null;
 }
+
 const returnValue = financialChartData.filter(filterValue);
 
 const Financial = () => {
