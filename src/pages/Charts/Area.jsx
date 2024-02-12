@@ -1,17 +1,35 @@
 import React from 'react';
 import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, DateTime, SplineAreaSeries, Legend } from '@syncfusion/ej2-react-charts';
-
+import { Tooltip } from '@syncfusion/ej2-react-popups';
 import { ChartsHeader } from '../../components';
-import { areaCustomSeries, areaPrimaryXAxis, areaPrimaryYAxis } from '../../data/dummy';
+import { areaCustomSeries,  ColorMappingPrimaryXAxis,  ColorMappingPrimaryYAxis } from '../../data/dummy';
 import { useStateContext } from '../../contexts/ContextProvider';
+
 
 const Area = () => {
   const { currentMode } = useStateContext();
 
   return (
-  <div>
-    Aarea
-  </div>
+
+    <div className="m-4 md:m-10 mt-24 p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
+      <ChartsHeader category="Line" title="Inflation Rate" />
+      <ChartComponent
+        id="line-chart"
+        height="420px"
+        primaryXAxis={ ColorMappingPrimaryYAxis}
+        primaryYAxis={ ColorMappingPrimaryXAxis}
+        chartArea={{ border: { width: 0 } }}
+        tooltip={{ enable: true }}
+        background={currentMode === 'Dark' ? '#33373E' : '#fff'}
+        legendSettings={{ background: 'white' }}
+      >
+        <Inject services={[SplineAreaSeries, DateTime, Legend, Tooltip]} />
+        <SeriesCollectionDirective>
+          {areaCustomSeries.map((item, index) => <SeriesDirective key={index} {...item} />)}
+        </SeriesCollectionDirective>
+      </ChartComponent>
+    </div>
+
   );
 };
 
